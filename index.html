@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agri Price Prediction System - Auth</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      text-align: center;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+    }
+
+    .form-container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .auth-links {
+      margin-top: 15px;
+    }
+
+    .auth-links a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+      display: block;
+      margin: 5px 0;
+      transition: color 0.2s ease;
+    }
+
+    .auth-links a:hover {
+      color: #388E3C;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Agri Price Prediction System</h1>
+</header>
+
+<div id="login" class="form-container">
+  <h2>Login</h2>
+  <input type="text" id="loginUsername" placeholder="Username">
+  <input type="password" id="loginPassword" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <div class="auth-links">
+    <a href="forgot_password.html">Forgot Password?</a>
+    <a href="#" onclick="toggleForms()">Don't have an account? Sign up</a>
+  </div>
+</div>
+
+<div id="signup" class="form-container" style="display: none;">
+  <h2>Sign Up</h2>
+  <input type="text" id="signupUsername" placeholder="Username">
+  <input type="email" id="signupEmail" placeholder="Email">
+  <input type="password" id="signupPassword" placeholder="Password">
+  <button onclick="signup()">Sign Up</button>
+  <div class="auth-links">
+    <a href="#" onclick="toggleForms()">Already have an account? Login</a>
+  </div>
+</div>
+
+<script>
+  function toggleForms() {
+    document.getElementById('login').style.display =
+      (document.getElementById('login').style.display === "none") ? "block" : "none";
+    document.getElementById('signup').style.display =
+      (document.getElementById('signup').style.display === "none") ? "block" : "none";
+  }
+
+  function signup() {
+    let username = document.getElementById("signupUsername").value;
+    let email = document.getElementById("signupEmail").value;
+    let password = document.getElementById("signupPassword").value;
+
+    let formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+
+    fetch("signup.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+      if (data === "success") {
+        alert("Signup successful! Please login.");
+        toggleForms();
+      } else {
+        alert("Signup failed: " + data);
+      }
+    });
+  }
+
+  function login() {
+    let username = document.getElementById("loginUsername").value;
+    let password = document.getElementById("loginPassword").value;
+
+    let formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+
+    fetch("login.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+      if (data === "success") {
+        window.location.href = "dashboard.php";
+      } else {
+        alert("Login failed: " + data);
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
