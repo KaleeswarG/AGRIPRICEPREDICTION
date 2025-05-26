@@ -1,11 +1,11 @@
-# 🌾 Agri Price Prediction System
+# Agri Price Prediction System
 
 This project is a web-based application designed to help farmers and users predict crop prices based on weather data  
 and recent market trends. It uses real-time weather information and displays graphs for visualizing trends.
 
 ---
 
-## 🔧 How It Works
+## How It Works
 
 1. **Update Weather Data**  
    Run `update_weather.php` to fetch temperature, humidity, and rainfall from OpenWeather API and store them in the database.
@@ -24,7 +24,7 @@ and recent market trends. It uses real-time weather information and displays gra
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - **PHP** – backend logic  
 - **MySQL** – database  
